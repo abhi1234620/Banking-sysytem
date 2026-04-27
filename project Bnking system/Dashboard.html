@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MiniBank – Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="dashboard-body">
+
+  <!-- ── TOP NAVBAR ── -->
+  <nav class="navbar">
+    <div class="nav-brand">
+      <span class="brand-icon-sm">₹</span>
+      <span class="nav-title">AbhiBank</span>
+    </div>
+    <div class="nav-right">
+      <span class="nav-user">👤 <span id="navUsername">User</span></span>
+      <button class="btn btn-logout" onclick="handleLogout()">Logout</button>
+    </div>
+  </nav>
+
+  <!-- ── MAIN LAYOUT ── -->
+  <div class="dashboard-container">
+
+    <!-- ── BALANCE CARD ── -->
+    <div class="card balance-card">
+      <p class="balance-label">Current Balance</p>
+      <h2 class="balance-amount" id="balanceDisplay">₹0.00</h2>
+      <p class="balance-sub">Account: <strong id="accNumber">MB-000000</strong></p>
+    </div>
+
+    <!-- ── ACTION BUTTONS ── -->
+    <div class="action-row">
+      <button class="btn btn-green" onclick="openModal('deposit')">
+        ⬆ Deposit
+      </button>
+      <button class="btn btn-red" onclick="openModal('withdraw')">
+        ⬇ Withdraw
+      </button>
+      <button class="btn btn-blue" onclick="openModal('transfer')">
+        ↔ Transfer
+      </button>
+    </div>
+
+    <!-- ── STATS ROW ── -->
+    <div class="stats-row">
+      <div class="stat-card">
+        <p class="stat-label">Total Deposited</p>
+        <p class="stat-value green" id="statDeposit">₹0</p>
+      </div>
+      <div class="stat-card">
+        <p class="stat-label">Total Withdrawn</p>
+        <p class="stat-value red" id="statWithdraw">₹0</p>
+      </div>
+      <div class="stat-card">
+        <p class="stat-label">Transactions</p>
+        <p class="stat-value blue" id="statCount">0</p>
+      </div>
+    </div>
+
+    <!-- ── TRANSACTION HISTORY ── -->
+    <div class="card">
+      <div class="section-header">
+        <h3 class="section-title">Transaction History</h3>
+        <div class="filter-row">
+          <!-- Filter by type -->
+          <select id="filterType" onchange="renderTransactions()">
+            <option value="all">All</option>
+            <option value="deposit">Deposits</option>
+            <option value="withdraw">Withdrawals</option>
+            <option value="transfer">Transfers</option>
+          </select>
+          <!-- Clear history button -->
+          <button class="btn btn-sm btn-outline" onclick="clearHistory()">
+            🗑 Clear
+          </button>
+        </div>
+      </div>
+
+      <!-- Transaction list renders here -->
+      <div id="txList" class="tx-list"></div>
+    </div>
+
+  </div><!-- end dashboard-container -->
+
+
+  <!-- ══════════════════════════════════════════
+       MODAL POPUP (Deposit / Withdraw / Transfer)
+       ══════════════════════════════════════════ -->
+  <div id="modalOverlay" class="modal-overlay hidden" onclick="closeModalOutside(event)">
+    <div class="modal-box">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h3 id="modalTitle">Transaction</h3>
+        <button class="modal-close" onclick="closeModal()">✕</button>
+      </div>
+
+      <!-- Modal Message -->
+      <div id="modalMsg" class="msg-box hidden"></div>
+
+      <!-- Amount Input (shown for all modes) -->
+      <div class="form-group">
+        <label for="modalAmount">Amount (₹)</label>
+        <input type="number" id="modalAmount" placeholder="Enter amount" min="1" />
+      </div>
+
+      <!-- Transfer-only: Recipient field -->
+      <div class="form-group" id="recipientGroup" style="display:none;">
+        <label for="modalRecipient">Recipient Name / Account</label>
+        <input type="text" id="modalRecipient" placeholder="e.g. Priya / MB-001234" />
+      </div>
+
+      <!-- Loading Spinner inside modal -->
+      <div id="modalSpinner" class="spinner hidden">
+        <div class="spin"></div>
+        <span>Processing...</span>
+      </div>
+
+      <!-- Modal Action Button -->
+      <button id="modalConfirmBtn" class="btn btn-primary btn-full" onclick="handleTransaction()">
+        Confirm
+      </button>
+
+    </div>
+  </div>
+
+
+  <script src="script.js"></script>
+</body>
+</html>

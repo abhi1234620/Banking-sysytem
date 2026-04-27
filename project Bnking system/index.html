@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MiniBank – Login</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="login-body">
+
+  <div class="login-wrapper">
+
+    <!-- Bank Logo / Brand -->
+    <div class="brand">
+      <div class="brand-icon">₹</div>
+      <h1 class="brand-name">AbhiBank</h1>
+      <p class="brand-tagline">Simple. Secure. Smart.</p>
+    </div>
+
+    <!-- Login Card -->
+    <div class="card login-card">
+      <h2 class="card-title">Sign In</h2>
+
+      <!-- Error / Success message box -->
+      <div id="loginMsg" class="msg-box hidden"></div>
+
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" id="username" placeholder="Enter username" autocomplete="off" />
+        <span class="field-hint">Use: <strong>AbhiBank</strong></span>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="Enter password" />
+        <span class="field-hint">Use: <strong>935961</strong></span>
+      </div>
+
+      <!-- Loading Spinner (hidden by default) -->
+      <div id="loginSpinner" class="spinner hidden">
+        <div class="spin"></div>
+        <span>Signing in...</span>
+      </div>
+
+      <button id="loginBtn" class="btn btn-primary btn-full" onclick="handleLogin()">
+        Login
+      </button>
+
+      <p class="login-note">
+        Demo credentials: <code>AbhiBank</code> / <code>935961</code>
+      </p>
+    </div>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
